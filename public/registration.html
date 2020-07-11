@@ -1,0 +1,178 @@
+<head> 
+    <link rel="stylesheet" href="registration.css">
+</head>
+<body>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
+<!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="/__/firebase/7.16.0/firebase-app.js"></script>
+
+<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+<script src="/__/firebase/7.16.0/firebase-analytics.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="/__/firebase/7.16.0/firebase-auth.js"></script>
+<script src="/__/firebase/7.16.0/firebase-firestore.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script src="/__/firebase/init.js"></script>
+<script>
+
+// Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBnpnWWGIpK-mEe0HwAXMZ81Ynv1CGSMFQ",
+    authDomain: "vandyhacks-283016.firebaseapp.com",
+    databaseURL: "https://vandyhacks-283016.firebaseio.com",
+    projectId: "vandyhacks-283016",
+    storageBucket: "vandyhacks-283016.appspot.com",
+    messagingSenderId: "614121372636",
+    appId: "1:614121372636:web:1e0e64c87f32ca50a0ed19"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  // Get a reference to the database service
+  var database = firebase.database();
+  var db = firebase.firestore();
+  function writeUserData(type ,name, phone, location, interests, time) {
+    db.collection(type).add({
+      Name: name,
+      Phone: phone,
+      Location: location,
+      Interests: interests,
+      Time: time
+    })
+            .then(function(docRef) {
+              console.log("Document written with ID: ", docRef.id);
+            })
+            .catch(function(error) {
+              console.error("Error adding document: ", error);
+            });
+  }
+</script>
+</body>
+
+<div id="i6b2i" class="gpd-navbar">
+  <div id="inao6" class="gpd-container">
+  </div>
+</div>
+<section id="iqqo1" class="gpd-section">
+
+  <br>
+  <div id="iost7" class="gpd-container">
+    <h1 id="ikb9j" data-anim-type="fadeInUp" align="center">registration
+    </h1>
+    <br><br><br><br>
+      <div id="iqawc" class="form-group" align="center">
+        <label class="label" id="idi8v">Name:&nbsp;</label>
+        <input placeholder="" name=" name" class="input" id="name_input"/>
+      </div>
+    <br>
+    <form method="post" data-redirect="" class="form" id="inat3">
+      <div id="iiukk" class="form-group" align="center">
+        <label id="i2kdk" class="label">Type:&nbsp;</label>
+        <input type="radio" name="radio-name" value="1" class="radio" id="volunteer_radio"/>
+        <label class="radio-label" id="ivdsb">Volunteer</label>
+        <input type="radio" name="radio-name" value="1" class="radio" id="ngo_radio"/>
+        <label class="radio-label" id="icoub">NGO</label>
+      </div>
+      <br>
+      <div id="iqawa" class="form-group" align="center">
+        <label class="label" id="idi8v">Phone number (10-digits):&nbsp;</label>
+        <input placeholder="" name="phone number" class="input" id="phone"/>
+      </div>
+      <br>
+      <div class="form-group" id="iso13" align="center">
+        <label class="label" id="ieca4">US Zip Code:&nbsp;</label>
+        <input placeholder="" name="zip code" class="input" id="zip"/>
+      </div>
+      <br>
+      <div class="form-group" id="i1qms" align="center">
+        <label class="label" id="i4j9a">Expected weekly time commitment (in hours):&nbsp;</label>
+        <input placeholder="" name="phone number" class="input" id="time"/>
+      </div>
+      <br>
+      <div class="form-group" id="ionnm" align="center">
+        <label class="label" id="iiyzw">Interests / Requirements:&nbsp;</label>
+        <input type="checkbox" name="checkbox-name" value="1" class="checkbox" id="food"/>
+        <label class="checkbox-label" id="id4ru">Food distribution</label>
+        <input type="checkbox" name="checkbox-name" value="1" class="checkbox" id="cleaning"/>
+        <label class="checkbox-label" id="i1izg">Cleaning</label>
+        <input type="checkbox" name="checkbox-name" value="1" class="checkbox" id="teaching"/>
+        <label class="checkbox-label" id="id718">Teaching</label>
+      </div>
+      <br>
+      <script>
+        var name = document.getElementById("name_input").value
+        var phone = document.getElementById("phone").value
+        var zipcode = document.getElementById("zip code").value
+        var time = document.getElementById("time").value
+        var type
+        if (document.getElementById("volunteer_radio").checked) {
+          type = "Volunteers"
+        } else {
+          type = "NGOs"
+        }
+        var interests = []
+        if (document.getElementById("food").checked) {
+          interests.push("Food Distribution")
+        }
+        if (document.getElementById("cleaning").checked) {
+          interests.push("Cleaning")
+        }
+        if (document.getElementById("teaching").checked) {
+          interests.push("Teaching")
+        }
+        var interests_str = interests.toString()
+
+      </script>
+      <div class="form-group" id="ibx85" align="center">
+        <button type="submit" class="button" onclick="writeUserData(type, name, phone, zipcode, interests_str, time)">Send</button>
+      </div>
+      <div data-form-state="success" class="state-success" id="i7xs1">Thanks! We received your request
+      </div>
+      <div data-form-state="error" class="state-error" id="izk47">An error occurred on processing your request, try again!
+      </div>
+    </form>
+  </div>
+</section>
+<style>html {
+  scroll-behavior: smooth;
+  }
+</style>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
+<!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="/__/firebase/7.16.0/firebase-app.js"></script>
+
+<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+<script src="/__/firebase/7.16.0/firebase-analytics.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="/__/firebase/7.16.0/firebase-auth.js"></script>
+<script src="/__/firebase/7.16.0/firebase-firestore.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script src="/__/firebase/init.js"></script>
+<script>
+
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBnpnWWGIpK-mEe0HwAXMZ81Ynv1CGSMFQ",
+    authDomain: "vandyhacks-283016.firebaseapp.com",
+    databaseURL: "https://vandyhacks-283016.firebaseio.com",
+    projectId: "vandyhacks-283016",
+    storageBucket: "vandyhacks-283016.appspot.com",
+    messagingSenderId: "614121372636",
+    appId: "1:614121372636:web:1e0e64c87f32ca50a0ed19"
+  };
+</script>

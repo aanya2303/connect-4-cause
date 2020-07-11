@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+body{
+  font-family:Helvetica, serif;
+}
+#iqqo1{
+  min-height:100vh;
+  background-color:#da6778;
+  color:#ffffff;
+}
+#iim194{
+  font-family:Impact, Charcoal, sans-serif;
+  font-size:50px;
+}
