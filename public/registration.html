@@ -1,61 +1,6 @@
 <head> 
     <link rel="stylesheet" href="registration.css">
 </head>
-<body>
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
-<!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
-
-<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-<script src="/__/firebase/7.16.0/firebase-app.js"></script>
-
-<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-<script src="/__/firebase/7.16.0/firebase-analytics.js"></script>
-
-<!-- Add Firebase products that you want to use -->
-<script src="/__/firebase/7.16.0/firebase-auth.js"></script>
-<script src="/__/firebase/7.16.0/firebase-firestore.js"></script>
-
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-
-  <script src="/__/firebase/init.js"></script>
-<script>
-
-// Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyBnpnWWGIpK-mEe0HwAXMZ81Ynv1CGSMFQ",
-    authDomain: "vandyhacks-283016.firebaseapp.com",
-    databaseURL: "https://vandyhacks-283016.firebaseio.com",
-    projectId: "vandyhacks-283016",
-    storageBucket: "vandyhacks-283016.appspot.com",
-    messagingSenderId: "614121372636",
-    appId: "1:614121372636:web:1e0e64c87f32ca50a0ed19"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  // Get a reference to the database service
-  var database = firebase.database();
-  var db = firebase.firestore();
-  function writeUserData(type ,name, phone, location, interests, time) {
-    db.collection(type).add({
-      Name: name,
-      Phone: phone,
-      Location: location,
-      Interests: interests,
-      Time: time
-    })
-            .then(function(docRef) {
-              console.log("Document written with ID: ", docRef.id);
-            })
-            .catch(function(error) {
-              console.error("Error adding document: ", error);
-            });
-  }
-</script>
-</body>
-
 <div id="i6b2i" class="gpd-navbar">
   <div id="inao6" class="gpd-container">
   </div>
@@ -106,37 +51,11 @@
         <label class="checkbox-label" id="id718">Teaching</label>
       </div>
       <br>
-      <script>
-        var name = document.getElementById("name_input").value
-        var phone = document.getElementById("phone").value
-        var zipcode = document.getElementById("zip code").value
-        var time = document.getElementById("time").value
-        var type
-        if (document.getElementById("volunteer_radio").checked) {
-          type = "Volunteers"
-        } else {
-          type = "NGOs"
-        }
-        var interests = []
-        if (document.getElementById("food").checked) {
-          interests.push("Food Distribution")
-        }
-        if (document.getElementById("cleaning").checked) {
-          interests.push("Cleaning")
-        }
-        if (document.getElementById("teaching").checked) {
-          interests.push("Teaching")
-        }
-        var interests_str = interests.toString()
 
-      </script>
       <div class="form-group" id="ibx85" align="center">
-        <button type="submit" class="button" onclick="writeUserData(type, name, phone, zipcode, interests_str, time)">Send</button>
+        <button type="submit" class="button" onclick="writeUserData()">Send</button>
       </div>
-      <div data-form-state="success" class="state-success" id="i7xs1">Thanks! We received your request
-      </div>
-      <div data-form-state="error" class="state-error" id="izk47">An error occurred on processing your request, try again!
-      </div>
+
     </form>
   </div>
 </section>
@@ -144,35 +63,68 @@
   scroll-behavior: smooth;
   }
 </style>
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
+<body>
 <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
 <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
 <script src="/__/firebase/7.16.0/firebase-app.js"></script>
 
-<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-<script src="/__/firebase/7.16.0/firebase-analytics.js"></script>
 
 <!-- Add Firebase products that you want to use -->
-<script src="/__/firebase/7.16.0/firebase-auth.js"></script>
 <script src="/__/firebase/7.16.0/firebase-firestore.js"></script>
+</body>
+<body>
+<!-- Previously loaded Firebase SDKs -->
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-
+<!-- Initialize Firebase -->
 <script src="/__/firebase/init.js"></script>
-<script>
 
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyBnpnWWGIpK-mEe0HwAXMZ81Ynv1CGSMFQ",
-    authDomain: "vandyhacks-283016.firebaseapp.com",
-    databaseURL: "https://vandyhacks-283016.firebaseio.com",
-    projectId: "vandyhacks-283016",
-    storageBucket: "vandyhacks-283016.appspot.com",
-    messagingSenderId: "614121372636",
-    appId: "1:614121372636:web:1e0e64c87f32ca50a0ed19"
-  };
+</body>
+
+<script>
+  function writeUserData() {
+    var db = firebase.firestore();
+    var newCityRef = db.collection("Volunteers").doc();
+    var name = document.getElementById("name_input").value
+    var phone = document.getElementById("phone").value
+    var zipcode = document.getElementById("zip").value
+    var time = document.getElementById("time").value
+    var type
+    if (document.getElementById("volunteer_radio").checked) {
+      type = "Volunteers"
+    } else {
+      type = "NGOs"
+    }
+    var interests = []
+    if (document.getElementById("food").checked) {
+      interests.push("Food Distribution")
+    }
+    if (document.getElementById("cleaning").checked) {
+      interests.push("Cleaning")
+    }
+    if (document.getElementById("teaching").checked) {
+      interests.push("Teaching")
+    }
+    var interests_str = interests.toString()
+    console.log(type)
+    console.log(name)
+    console.log(phone)
+    console.log(zipcode)
+    console.log(interests_str)
+    console.log(time)
+    db.collection(type).add({
+      Name: name,
+      Phone: phone,
+      Location: zipcode,
+      Interests: interests_str,
+      Time: time
+    })
+            .then(function(docRef) {
+              console.log("Document written with ID: ", docRef.id);
+            })
+            .catch(function(error) {
+              console.error("Error adding document: ", error);
+            });
+
+  }
 </script>
