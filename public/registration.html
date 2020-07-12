@@ -17,7 +17,7 @@
         <input placeholder="" name=" name" class="input" id="name_input"/>
       </div>
     <br>
-    <form method="post" data-redirect="" class="form" id="inat3">
+    <form method="get" data-redirect="" class="form" id="inat3" action="location.html">
       <div id="iiukk" class="form-group" align="center">
         <label id="i2kdk" class="label">Type:&nbsp;</label>
         <input type="radio" name="radio-name" value="1" class="radio" id="volunteer_radio"/>
@@ -53,10 +53,13 @@
       <br>
 
       <div class="form-group" id="ibx85" align="center">
-        <button type="submit" class="button" onclick="writeUserData()">Send</button>
+        <a href="location.html">
+        <button type="button" class="button" onclick="writeUserData()" >Send</button>
+        </a>
       </div>
 
     </form>
+
   </div>
 </section>
 <style>html {
@@ -80,16 +83,18 @@
 <script src="/__/firebase/init.js"></script>
 
 </body>
+<script>
 
+</script>
 <script>
   function writeUserData() {
     var db = firebase.firestore();
-    var newCityRef = db.collection("Volunteers").doc();
     var name = document.getElementById("name_input").value
     var phone = document.getElementById("phone").value
     var zipcode = document.getElementById("zip").value
-    var time = document.getElementById("time").value
+    var time = parseInt(document.getElementById("time").value)
     var type
+    var Id
     if (document.getElementById("volunteer_radio").checked) {
       type = "Volunteers"
     } else {
@@ -112,7 +117,9 @@
     console.log(zipcode)
     console.log(interests_str)
     console.log(time)
-    db.collection(type).add({
+    var myRef = db.collection(type).doc()
+    console.log(myRef.id)
+    myRef.set({
       Name: name,
       Phone: phone,
       Location: zipcode,
@@ -120,11 +127,16 @@
       Time: time
     })
             .then(function(docRef) {
-              console.log("Document written with ID: ", docRef.id);
+              console.log("Document written with ID: ", myRef.id);
+
             })
             .catch(function(error) {
               console.error("Error adding document: ", error);
             });
+    localStorage.setItem("Id", myRef.id)
+    localStorage.setItem("type", type)
+    localStorage.setItem("time", time.toString())
+    localStorage.setItem("interests", interests_str)
 
   }
 </script>

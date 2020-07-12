@@ -1,16 +1,46 @@
-<head> 
+
+<head>
     <link rel="stylesheet" href="main page.css">
 </head>
 <body>
   <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="/__/firebase/7.16.0/firebase-app.js"></script>
+  <script src="https://js.radar.io/v3/radar.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="/__/firebase/7.16.0/firebase-firestore.js"></script>
+  <script>
+    Radar.initialize('prj_live_pk_0cb8466c9113951cd412fa1ce908a072a6688a37');
+  </script>
+  <script src="/__/firebase/init.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script>
+    Radar.getDistance({
+      origin: {
+        latitude: 40.78382,
+        longitude: -73.97536
+      },
+      destination: {
+        latitude: 40.70390,
+        longitude: -73.98670
+      },
+      modes: [
+        'car'
+      ],
+      units: 'imperial'
+    }, function(err, result) {
+      if (!err) {
+        console.log(result.routes.car.distance.value)
+      }
+    });
+  </script>
 
 <!-- Initialize Firebase -->
-<script src="/__/firebase/init.js"></script>
 </body>
+
+
 <section id="iqqo1" class="gpd-section">
   <div id="iost7" class="gpd-container">
     <div id="i3g5y" class="tabs" align="center">
@@ -36,7 +66,7 @@
       </nav>
       <br><br>
       <div id="iwybr" class="tab-content">
-        <table border="1" bordercolor="white" align="center" width="80%" cellspacing="5" cellspacing="5">
+        <table border="1" bordercolor="white" align="center" width="80%" cellspacing="5" cellspacing="5" id="ex-table">
           <tr>
             <th>Name</th>
             <th>Phone Number</th>
@@ -44,6 +74,8 @@
             <th>Interests</th>
             <th>Time commitment</th>
           </tr>
+          <div id="myTable">
+          </div>
         </table>
       </div>
     </div>
@@ -53,3 +85,34 @@
   scroll-behavior: smooth;
   }
 </style>
+<script>
+
+    var db = firebase.firestore();
+    var Id = localStorage.getItem("Id")
+    var type = localStorage.getItem("type")
+    var content
+    console.log(Id)
+    console.log(type)
+    var disp_type
+    if (type === "Volunteers") {
+      disp_type = "NGOs"
+    } else if (type === "NGOs") {
+      disp_type = "Volunteers"
+    }
+    db.collection(disp_type).get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        var row =  "<tr>" +
+                "<td>" + doc.data().Name + "</td>" +
+                "<td>" + doc.data().Phone + "</td>" +
+                "<td>" + doc.data().Location + "</td>" +
+                "<td>" + doc.data().Interests + "</td>" +
+                "<td>" + doc.data().Time + "</td>" +
+                "</tr>"
+        content += row
+      });
+      $("#ex-table").append(content);
+    });
+
+</script>

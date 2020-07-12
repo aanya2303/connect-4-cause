@@ -2,15 +2,45 @@
     <link rel="stylesheet" href="main page.css">
 </head>
 <body>
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="/__/firebase/7.16.0/firebase-app.js"></script>
+<script src="https://js.radar.io/v3/radar.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Add Firebase products that you want to use -->
+<script src="/__/firebase/7.16.0/firebase-firestore.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-
-<!-- Initialize Firebase -->
 <script src="/__/firebase/init.js"></script>
 </body>
+<script>
+  var Id = localStorage.getItem("Id")
+  var type = localStorage.getItem("type")
+  var interests_list = localStorage.getItem("interests").split(",")
+  var disp_type
+  var db = firebase.firestore();
+
+  if (type === "Volunteers") {
+    disp_type = "NGOs"
+  } else if (type === "NGOs") {
+    disp_type = "Volunteers"
+  }
+  var content
+  db.collection(disp_type).where("Interests", "in", interests_list).get().then(function (querySnapshot) {
+    querySnapshot.forEach(function (doc) {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+      var row =  "<tr>" +
+              "<td>" + doc.data().Name + "</td>" +
+              "<td>" + doc.data().Phone + "</td>" +
+              "<td>" + doc.data().Location + "</td>" +
+              "<td>" + doc.data().Interests + "</td>" +
+              "<td>" + doc.data().Time + "</td>" +
+              "</tr>"
+      content += row
+    });
+    $("#ex-table").append(content);
+  });
+
+</script>
+
 <section id="iqqo1" class="gpd-section">
   <div id="iost7" class="gpd-container">
     <div id="i3g5y" class="tabs" align="center">
@@ -36,7 +66,7 @@
       </nav>
       <br><br>
       <div id="iwybr" class="tab-content">
-        <table border="1" bordercolor="white" align="center" width="80%" cellspacing="5" cellspacing="5">
+        <table border="1" bordercolor="white" align="center" width="80%" cellspacing="5" cellspacing="5" id="ex-table">
           <tr>
             <th>Name</th>
             <th>Phone Number</th>
